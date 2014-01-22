@@ -2,6 +2,7 @@
 #define TIMELINEWIDGET_H
 
 #include <QWidget>
+#include <QTimer>
 
 #include "animation.h"
 
@@ -19,15 +20,29 @@ public:
 
     void setAnimation(Animation *animation);
 
+    void play();
+    void pause();
+    void stop();
+
+signals:
+    void keyFrameChanged(int keyFrame);
+
 private slots:
     void setFrameCount(int count);
     void setFps(int fps);
+    void advanceFrame();
     void on_fps_editingFinished();
     void on_frameCount_editingFinished();
 
+    void on_toolButton_clicked();
+
+    void on_toolButton_2_clicked();
+
 private:
+    int intervalFromFps();
     Ui::TimelineWidget *ui;
     Animation *m_animation;
+    QTimer m_timer;
 };
 
 #endif // TIMELINEWIDGET_H
