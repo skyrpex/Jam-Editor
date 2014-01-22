@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     qxtimelineeditor/QxTimeLineEditor.cpp \
     timelineeditor.cpp \
     timelinewidget.cpp \
-    animation.cpp
+    animation.cpp \
+    importer.cpp
 
 HEADERS  += mainwindow.h \
     qxtimelineeditor/Constants.hpp \
@@ -29,10 +30,12 @@ HEADERS  += mainwindow.h \
     qxtimelineeditor/QxTimeLineEditor_p.hpp \
     timelineeditor.h \
     timelinewidget.h \
-    animation.h
+    animation.h \
+    importer.h
 
 FORMS    += mainwindow.ui \
-    timelinewidget.ui
+    timelinewidget.ui \
+    importer.ui
 
 include(qxmesh/QxMesh.pri)
 
