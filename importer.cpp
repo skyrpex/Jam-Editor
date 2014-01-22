@@ -4,6 +4,7 @@
 #include <QFileDialog>
 #include <QGraphicsPixmapItem>
 #include <qxmeshdef.h>
+#include <qxclipper.h>
 
 Importer::Importer(QWidget *parent) :
     QDialog(parent),
@@ -13,6 +14,8 @@ Importer::Importer(QWidget *parent) :
 
     // Create the view and the scene
     ui->graphicsView->setScene(&m_scene);
+
+    on_browse_clicked();
 }
 
 Importer::~Importer()
@@ -48,11 +51,6 @@ void Importer::on_reload_clicked()
     loadImage(image);
 }
 
-void Importer::on_margin_editingFinished()
-{
-
-}
-
 void Importer::loadImage(const QImage &image)
 {
 //    m_image = image;
@@ -61,34 +59,17 @@ void Importer::loadImage(const QImage &image)
     QGraphicsPixmapItem *pixmapItem = m_scene.addPixmap(QPixmap::fromImage(image));
     pixmapItem->setOpacity(0.25);
 
-    // Trace the image
-    foreach(QxMeshDef def, QxMeshDef::fromImage(image))
-    {
-        // Transform our mesh def
-        def.offset(3);
-        def.simplifyByTolerance(0.8);
-//        def.simplifyByVertexCount(40);
+    // Merge boundaries
+    QList<QxMeshDef> defs = QxMeshDef::fromImage(image);
+    QList<QPolygonF> boundingPolygons;
+    boundingPolygons.reserve(defs.count());
+    foreach(const QxMeshDef &def, QxMeshDef::fromImage(image)) {
+        boundingPolygons << QPolygonF(def.boundary.boundingRect());
+    }
 
-        // Draw the triangles
-        QxMesh mesh = def.mesh();
-        for(int i = 2; i < mesh.indices.count(); i+=3)
-        {
-            int index0 = mesh.indices[i-2];
-            int index1 = mesh.indices[i-1];
-            int index2 = mesh.indices[i];
-
-            QPolygonF triangle;
-            triangle << mesh.vertices[index0]
-                        << mesh.vertices[index1]
-                           << mesh.vertices[index2];
-
-            m_scene.addPolygon(triangle);
-        }
-
-        //    scene.addPolygon(def.boundary, QPen(Qt::blue));
-        //    foreach(const QPolygonF &hole, def.holes)
-        //    {
-        //      scene.addPolygon(hole, QPen(Qt::red));
-        //    }
+    // Create the items
+    foreach(const QPolygonF &polygon, QxClipper::merged(boundingPolygons)) {
+        QGraphicsRectItem *item = m_scene.addRect(polygon.boundingRect());
+        item->setFlags(QGraphicsItem::ItemIsSelectable);
     }
 }

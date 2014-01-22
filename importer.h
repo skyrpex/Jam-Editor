@@ -21,7 +21,6 @@ public:
 private slots:
     void on_browse_clicked();
     void on_reload_clicked();
-    void on_margin_editingFinished();
 
 private:
     void loadImage(const QImage &image);
