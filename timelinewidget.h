@@ -19,6 +19,7 @@ public:
     ~TimelineWidget();
 
     void setAnimation(Animation *animation);
+    int currentFrame() const;
 
     void play();
     void pause();
@@ -28,6 +29,7 @@ signals:
     void keyFrameChanged(int keyFrame);
 
 private slots:
+    void onEditorFrameChanged(int frame);
     void setFrameCount(int count);
     void setFps(int fps);
     void advanceFrame();

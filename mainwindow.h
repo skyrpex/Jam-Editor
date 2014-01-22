@@ -18,11 +18,11 @@ public:
     ~MainWindow();
 
 private slots:
+    void onKeyFrameChanged(int keyFrame);
     void on_actionNew_triggered();
     void on_actionOpen_triggered();
     void on_actionSave_triggered();
     void on_actionExit_triggered();
-
     void on_actionImport_triggered();
 
 private:

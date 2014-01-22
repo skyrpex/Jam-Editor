@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "importer.h"
+#include "keyframe.h"
 
 #include <QxMesh>
 
@@ -12,11 +13,18 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->timelineWidget->setAnimation(&m_animation);
+
+    connect(ui->timelineWidget, SIGNAL(keyFrameChanged(int)), this, SLOT(onKeyFrameChanged(int)));
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::onKeyFrameChanged(int keyFrame)
+{
+    ui->canvas->setKeyFrame(m_animation.keyFrames().value(keyFrame));
 }
 
 void MainWindow::on_actionNew_triggered()
@@ -43,7 +51,13 @@ void MainWindow::on_actionImport_triggered()
 {
     Importer importer(this);
     if(importer.exec()) {
-        qDebug() << importer.image();
-        qDebug() << importer.rects();
+        QString fileName = importer.fileName();
+        QRectF rect = importer.mergedRects();
+        KeyFrame *keyFrame = new KeyFrame(fileName, rect);
+
+        int frame = ui->timelineWidget->currentFrame();
+        m_animation.insertKeyFrame(frame, keyFrame);
+
+        ui->canvas->setKeyFrame(m_animation.keyFrames().value(ui->timelineWidget->currentFrame()));
     }
 }

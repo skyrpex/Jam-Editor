@@ -18,8 +18,10 @@ public:
     explicit Importer(QWidget *parent = 0);
     ~Importer();
 
+    QString fileName() const;
     QImage image() const;
     QVector<QRectF> rects() const;
+    QRectF mergedRects() const;
 
 private slots:
     void on_browse_clicked();

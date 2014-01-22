@@ -12,6 +12,9 @@ TimelineWidget::TimelineWidget(QWidget *parent) :
     QScrollBar *scrollBar = ui->timelineEditor->horizontalScrollBar();
     ui->verticalLayout->addWidget( scrollBar );
     connect(&m_timer, SIGNAL(timeout()), this, SLOT(advanceFrame()));
+
+
+    connect(ui->timelineEditor, SIGNAL(currentFrameChanged(int)), this, SLOT(onEditorFrameChanged(int)));
 }
 
 TimelineWidget::~TimelineWidget()
@@ -36,6 +39,11 @@ void TimelineWidget::setAnimation(Animation *animation)
     }
 }
 
+int TimelineWidget::currentFrame() const
+{
+    return ui->timelineEditor->currentFrame();
+}
+
 void TimelineWidget::play()
 {
     m_timer.start(intervalFromFps());
@@ -50,6 +58,13 @@ void TimelineWidget::stop()
 {
     ui->timelineEditor->setCurrentFrame(0);
     m_timer.stop();
+}
+
+void TimelineWidget::onEditorFrameChanged(int frame)
+{
+    if(m_animation->keyFrames().contains(frame)) {
+        emit keyFrameChanged(frame);
+    }
 }
 
 void TimelineWidget::setFrameCount(int count)

@@ -6,6 +6,11 @@ Animation::Animation(QObject *parent) :
 {
 }
 
+Animation::~Animation()
+{
+    qDeleteAll(m_keyFrames);
+}
+
 int Animation::frameCount() const
 {
     return m_frameCount;
@@ -19,6 +24,28 @@ int Animation::fps() const
 QPointF Animation::origin() const
 {
     return m_origin;
+}
+
+QMap<int, KeyFrame *> Animation::keyFrames() const
+{
+    return m_keyFrames;
+}
+
+void Animation::insertKeyFrame(int i, KeyFrame *keyFrame)
+{
+    if(m_keyFrames.contains(i)) {
+        delete m_keyFrames.value(i);
+    }
+
+    m_keyFrames.insert(i, keyFrame);
+    emit keyFrameInserted(i);
+}
+
+KeyFrame *Animation::takeKeyFrame(int i)
+{
+    KeyFrame *k = m_keyFrames.take(i);
+    emit keyFrameRemoved(i);
+    return k;
 }
 
 void Animation::setFrameCount(int count)

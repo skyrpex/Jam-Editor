@@ -22,6 +22,11 @@ Importer::~Importer()
     delete ui;
 }
 
+QString Importer::fileName() const
+{
+    return m_fileName;
+}
+
 QImage Importer::image() const
 {
     return QImage(m_fileName);
@@ -34,6 +39,15 @@ QVector<QRectF> Importer::rects() const
         rects << item->boundingRect();
     }
     return rects;
+}
+
+QRectF Importer::mergedRects() const
+{
+    QRectF rect;
+    foreach(QGraphicsItem *item, m_scene.selectedItems()) {
+        rect |= item->boundingRect();
+    }
+    return rect;
 }
 
 void Importer::on_browse_clicked()
