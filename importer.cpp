@@ -11,9 +11,8 @@ Importer::Importer(QWidget *parent) :
     ui(new Ui::Importer)
 {
     ui->setupUi(this);
-
-    // Create the view and the scene
     ui->graphicsView->setScene(&m_scene);
+    ui->graphicsView->setDragMode(QGraphicsView::RubberBandDrag);
 
     on_browse_clicked();
 }
@@ -21,6 +20,20 @@ Importer::Importer(QWidget *parent) :
 Importer::~Importer()
 {
     delete ui;
+}
+
+QImage Importer::image() const
+{
+    return QImage(m_fileName);
+}
+
+QVector<QRectF> Importer::rects() const
+{
+    QVector<QRectF> rects;
+    foreach(QGraphicsItem *item, m_scene.selectedItems()) {
+        rects << item->boundingRect();
+    }
+    return rects;
 }
 
 void Importer::on_browse_clicked()

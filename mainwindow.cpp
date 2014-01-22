@@ -4,6 +4,8 @@
 
 #include <QxMesh>
 
+#include <QDebug>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -40,5 +42,8 @@ void MainWindow::on_actionExit_triggered()
 void MainWindow::on_actionImport_triggered()
 {
     Importer importer(this);
-    importer.exec();
+    if(importer.exec()) {
+        qDebug() << importer.image();
+        qDebug() << importer.rects();
+    }
 }

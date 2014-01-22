@@ -18,6 +18,9 @@ public:
     explicit Importer(QWidget *parent = 0);
     ~Importer();
 
+    QImage image() const;
+    QVector<QRectF> rects() const;
+
 private slots:
     void on_browse_clicked();
     void on_reload_clicked();
