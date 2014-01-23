@@ -20,7 +20,6 @@ public:
 
     QString fileName() const;
     QImage image() const;
-    QVector<QRectF> rects() const;
     QRectF mergedRects() const;
 
 private slots:

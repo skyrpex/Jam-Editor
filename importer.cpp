@@ -32,20 +32,11 @@ QImage Importer::image() const
     return QImage(m_fileName);
 }
 
-QVector<QRectF> Importer::rects() const
-{
-    QVector<QRectF> rects;
-    foreach(QGraphicsItem *item, m_scene.selectedItems()) {
-        rects << item->boundingRect();
-    }
-    return rects;
-}
-
 QRectF Importer::mergedRects() const
 {
     QRectF rect;
     foreach(QGraphicsItem *item, m_scene.selectedItems()) {
-        rect |= item->boundingRect();
+        rect |= item->sceneBoundingRect();
     }
     return rect;
 }
