@@ -90,7 +90,7 @@ bool MainWindow::saveAs()
 bool MainWindow::saveFile(const QString &fileName)
 {
     AnimationToJson converter;
-    QJsonDocument document = converter.toJson(&m_animation);
+    QJsonDocument document = converter.toJson(m_animation);
     QByteArray json = document.toJson();
     QFile file(fileName);
     file.open(QIODevice::WriteOnly);
