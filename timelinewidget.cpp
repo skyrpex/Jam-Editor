@@ -70,9 +70,9 @@ void TimelineWidget::stop()
 void TimelineWidget::onEditorFrameChanged(int frame)
 {
     int keyFrame = keyframeForFrame(frame);
-    if (keyFrame == -1) {
-        return;
-    }
+//    if (keyFrame == -1) {
+//        return;
+//    }
 
     if (m_lastKeyFrame == keyFrame) {
         return;
