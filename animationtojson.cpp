@@ -24,12 +24,15 @@ QJsonObject AnimationToJson::toJsonObject(const Animation &animation)
     animationObject.insert("fps", animation.fps());
     animationObject.insert("origin", toJsonObject(animation.origin()));
 
-    QJsonObject keyFramesObject;
+    QJsonArray keyFramesArray;
     const auto keyFrames = animation.keyFrames();
     for(auto it = keyFrames.begin(); it != keyFrames.end(); ++it) {
-        keyFramesObject.insert(QString::number(it.key()), toJsonObject(*it.value()));
+        QJsonObject keyFrameObject;
+        keyFrameObject.insert("frame", it.key());
+        keyFrameObject.insert("data", toJsonObject(*it.value()));
+        keyFramesArray.append(keyFrameObject);
     }
-    animationObject.insert("keyFrames", keyFramesObject);
+    animationObject.insert("keyFrames", keyFramesArray);
 
     return animationObject;
 }
