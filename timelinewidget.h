@@ -21,6 +21,8 @@ public:
     void setAnimation(Animation *animation);
     int currentFrame() const;
 
+    void createKeyFrame();
+
     void play();
     void pause();
     void stop();

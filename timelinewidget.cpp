@@ -29,6 +29,7 @@ void TimelineWidget::setAnimation(Animation *animation)
     }
 
     m_animation = animation;
+    ui->timelineEditor->setAnimation(animation);
     m_timer.stop();
 
     if(m_animation) {
@@ -42,6 +43,11 @@ void TimelineWidget::setAnimation(Animation *animation)
 int TimelineWidget::currentFrame() const
 {
     return ui->timelineEditor->currentFrame();
+}
+
+void TimelineWidget::createKeyFrame()
+{
+    ui->timelineEditor->createKeyFrame(ui->timelineEditor->currentFrame());
 }
 
 void TimelineWidget::play()

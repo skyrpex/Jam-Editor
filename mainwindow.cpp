@@ -49,15 +49,5 @@ void MainWindow::on_actionExit_triggered()
 
 void MainWindow::on_actionImport_triggered()
 {
-    Importer importer(this);
-    if(importer.exec()) {
-        QString fileName = importer.fileName();
-        QRectF rect = importer.mergedRects();
-        KeyFrame *keyFrame = new KeyFrame(fileName, rect);
-
-        int frame = ui->timelineWidget->currentFrame();
-        m_animation.insertKeyFrame(frame, keyFrame);
-
-        ui->canvas->setKeyFrame(m_animation.keyFrames().value(ui->timelineWidget->currentFrame()));
-    }
+    ui->timelineWidget->createKeyFrame();
 }
