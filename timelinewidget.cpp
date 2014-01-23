@@ -16,6 +16,9 @@ TimelineWidget::TimelineWidget(QWidget *parent) :
 
 
     connect(ui->timelineEditor, SIGNAL(currentFrameChanged(int)), this, SLOT(onEditorFrameChanged(int)));
+    connect(ui->timelineEditor, &TimelineEditor::keyFrameRemoved, [this](int frame) {
+        emit keyFrameChanged(frame);
+    });
 }
 
 TimelineWidget::~TimelineWidget()
