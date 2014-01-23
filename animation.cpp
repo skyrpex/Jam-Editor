@@ -1,9 +1,9 @@
 #include "animation.h"
 
 Animation::Animation(QObject *parent) :
-    QObject(parent),
-    m_frameCount(15)
+    QObject(parent)
 {
+    clear();
 }
 
 Animation::~Animation()
@@ -46,6 +46,15 @@ KeyFrame *Animation::takeKeyFrame(int i)
     KeyFrame *k = m_keyFrames.take(i);
     emit keyFrameRemoved(i);
     return k;
+}
+
+void Animation::clear()
+{
+    m_fps = 15;
+    m_frameCount = 15;
+    for(int i : m_keyFrames.keys()) {
+        delete takeKeyFrame(i);
+    }
 }
 
 void Animation::setFrameCount(int count)

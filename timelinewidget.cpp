@@ -54,6 +54,12 @@ void TimelineWidget::createKeyFrame()
     ui->timelineEditor->createKeyFrame(ui->timelineEditor->currentFrame());
 }
 
+void TimelineWidget::clear()
+{
+    ui->timelineEditor->clearKeyFrames();
+    ui->timelineEditor->setCurrentFrame(0);
+}
+
 void TimelineWidget::play()
 {
     m_timer.start(intervalFromFps());

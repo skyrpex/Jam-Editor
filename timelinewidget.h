@@ -23,6 +23,8 @@ public:
 
     void createKeyFrame();
 
+    void clear();
+
     void play();
     void pause();
     void stop();

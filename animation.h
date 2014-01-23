@@ -22,6 +22,8 @@ public:
     void insertKeyFrame(int i, KeyFrame *keyFrame);
     KeyFrame *takeKeyFrame(int i);
 
+    void clear();
+
 signals:
     void frameCountChanged(int count);
     void fpsChanged(int fps);

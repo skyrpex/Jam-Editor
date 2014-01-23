@@ -29,7 +29,8 @@ void MainWindow::onKeyFrameChanged(int keyFrame)
 
 void MainWindow::on_actionNew_triggered()
 {
-
+    m_animation.clear();
+    ui->timelineWidget->clear();
 }
 
 void MainWindow::on_actionOpen_triggered()
