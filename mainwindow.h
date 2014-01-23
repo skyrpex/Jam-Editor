@@ -17,6 +17,9 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+protected:
+    void closeEvent(QCloseEvent *event);
+
 private slots:
     void onKeyFrameChanged(int keyFrame);
     void on_actionNew_triggered();
@@ -25,6 +28,8 @@ private slots:
     void on_actionExit_triggered();
 
 private:
+    bool save();
+    bool maybeSave();
     Ui::MainWindow *ui;
     Animation m_animation;
 };
