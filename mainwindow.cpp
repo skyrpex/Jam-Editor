@@ -46,8 +46,3 @@ void MainWindow::on_actionExit_triggered()
 {
     close();
 }
-
-void MainWindow::on_actionImport_triggered()
-{
-    ui->timelineWidget->createKeyFrame();
-}
