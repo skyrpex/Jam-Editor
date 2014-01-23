@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "importer.h"
 #include "keyframe.h"
+#include "animationtojson.h"
 
 #include <QxMesh>
 
@@ -9,6 +10,7 @@
 #include <QMessageBox>
 #include <QMouseEvent>
 #include <QCloseEvent>
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -73,6 +75,27 @@ void MainWindow::on_actionExit_triggered()
 bool MainWindow::save()
 {
 //    setWindowModified(false);
+    return saveAs();
+}
+
+bool MainWindow::saveAs()
+{
+    QString fileName = QFileDialog::getSaveFileName(this);
+    if (fileName.isEmpty())
+        return false;
+
+    return saveFile(fileName);
+}
+
+bool MainWindow::saveFile(const QString &fileName)
+{
+    AnimationToJson converter;
+    QJsonDocument document = converter.toJson(&m_animation);
+    QByteArray json = document.toJson();
+    QFile file(fileName);
+    file.open(QIODevice::WriteOnly);
+    QTextStream stream(&file);
+    stream << json;
     return true;
 }
 

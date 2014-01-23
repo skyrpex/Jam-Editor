@@ -29,6 +29,8 @@ private slots:
 
 private:
     bool save();
+    bool saveAs();
+    bool saveFile(const QString &fileName);
     bool maybeSave();
     Ui::MainWindow *ui;
     Animation m_animation;
