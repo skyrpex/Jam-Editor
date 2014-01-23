@@ -1,35 +1,67 @@
 #include "keyframe.h"
+#include "hitbox.h"
 
-#include <QDebug>
+#include <QImage>
 
-KeyFrame::KeyFrame(const QString &fileName, const QRectF &rect)
-{
-    setSubImage(fileName, rect);
+KeyFrame::KeyFrame() {
+
 }
 
-void KeyFrame::setSubImage(const QString &fileName, const QRectF &rect)
-{
-    m_fileName = fileName;
-    m_rect = rect;
-    reload();
+KeyFrame::KeyFrame(const QString &fileName, const QRectF &rect) {
+    setFileName(fileName);
+    setRect(rect);
 }
 
-void KeyFrame::reload()
-{
-    m_subImage = QImage(m_fileName).copy(m_rect.toRect());
+KeyFrame::~KeyFrame() {
+    qDeleteAll(m_hitBoxes);
 }
 
 QImage KeyFrame::image() const
 {
-    return m_subImage;
+    return QImage(m_fileName).copy(m_rect.toRect());
 }
 
-QString KeyFrame::fileName() const
-{
+QString KeyFrame::fileName() const {
     return m_fileName;
 }
 
-QRectF KeyFrame::rect() const
-{
+QRectF KeyFrame::rect() const {
     return m_rect;
+}
+
+QVector<HitBox *> KeyFrame::hitBoxes() const {
+    return m_hitBoxes;
+}
+
+void KeyFrame::setFileName(const QString &fileName) {
+    if (m_fileName == fileName) {
+        return;
+    }
+
+    m_fileName = fileName;
+    emit fileNameChanged(fileName);
+}
+
+void KeyFrame::setRect(const QRectF &rect) {
+    if (m_rect == rect) {
+        return;
+    }
+
+    m_rect = rect;
+    emit rectChanged(rect);
+}
+
+void KeyFrame::insertHitBox(int i, HitBox *hitBox) {
+    if (m_hitBoxes.value(i) == hitBox) {
+        return;
+    }
+
+    m_hitBoxes.insert(i, hitBox);
+    emit hitBoxInserted(i, hitBox);
+}
+
+HitBox *KeyFrame::takeHitBox(int i) {
+    HitBox *hitBox = m_hitBoxes.takeAt(i);
+    emit hitBoxRemoved(i, hitBox);
+    return hitBox;
 }

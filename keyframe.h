@@ -1,26 +1,38 @@
-#ifndef KEYFRAME_H
-#define KEYFRAME_H
+#pragma once
 
-#include <QImage>
+#include <QObject>
 #include <QString>
 #include <QRectF>
+#include <QVector>
 
-class KeyFrame
-{
+class HitBox;
+
+class KeyFrame : public QObject {
+    Q_OBJECT
 public:
+    KeyFrame();
     KeyFrame(const QString &fileName, const QRectF &rect);
-
-    void setSubImage(const QString &fileName, const QRectF &rect);
-    void reload();
+    ~KeyFrame();
 
     QImage image() const;
     QString fileName() const;
     QRectF rect() const;
+    QVector<HitBox *> hitBoxes() const;
+
+public slots:
+    void setFileName(const QString &fileName);
+    void setRect(const QRectF &rect);
+    void insertHitBox(int i, HitBox *hitBox);
+    HitBox *takeHitBox(int i);
+
+signals:
+    void fileNameChanged(const QString &fileName);
+    void rectChanged(const QRectF &rect);
+    void hitBoxInserted(int i, HitBox *hitBox);
+    void hitBoxRemoved(int i, HitBox *hitBox);
 
 private:
     QString m_fileName;
     QRectF m_rect;
-    QImage m_subImage;
+    QVector<HitBox *> m_hitBoxes;
 };
-
-#endif // KEYFRAME_H
