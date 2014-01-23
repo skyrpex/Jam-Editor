@@ -4,6 +4,8 @@
 #include <QGraphicsScene>
 #include <QWidget>
 
+#include "scene.h"
+
 namespace Ui {
 class Canvas;
 }
@@ -23,7 +25,7 @@ public:
 
 private:
     Ui::Canvas *ui;
-    QGraphicsScene m_scene;
+    Scene m_scene;
     Animation *m_animation;
 };
 

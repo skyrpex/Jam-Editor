@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     keyframe.cpp \
     canvas.cpp \
     hitbox.cpp \
-    keyframeitem.cpp
+    keyframeitem.cpp \
+    scene.cpp
 
 HEADERS  += mainwindow.h \
     qxtimelineeditor/Constants.hpp \
@@ -39,7 +40,8 @@ HEADERS  += mainwindow.h \
     keyframe.h \
     canvas.h \
     hitbox.h \
-    keyframeitem.h
+    keyframeitem.h \
+    scene.h
 
 FORMS    += mainwindow.ui \
     timelinewidget.ui \
