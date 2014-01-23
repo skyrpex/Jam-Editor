@@ -6,7 +6,8 @@
 TimelineWidget::TimelineWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::TimelineWidget),
-    m_animation(0)
+    m_animation(0),
+    m_lastKeyFrame(-1)
 {
     ui->setupUi(this);
     QScrollBar *scrollBar = ui->timelineEditor->horizontalScrollBar();
@@ -35,8 +36,8 @@ void TimelineWidget::setAnimation(Animation *animation)
     if(m_animation) {
         setFrameCount(m_animation->frameCount());
 
-        animation->connect(m_animation, SIGNAL(frameCountChanged(int)), this, SLOT(setFrameCount(int)));
-        animation->connect(m_animation, SIGNAL(fpsChanged(int)), this, SLOT(setFps(int)));
+        connect(m_animation, SIGNAL(frameCountChanged(int)), this, SLOT(setFrameCount(int)));
+        connect(m_animation, SIGNAL(fpsChanged(int)), this, SLOT(setFps(int)));
     }
 }
 
@@ -68,9 +69,17 @@ void TimelineWidget::stop()
 
 void TimelineWidget::onEditorFrameChanged(int frame)
 {
-    if(m_animation->keyFrames().contains(frame)) {
-        emit keyFrameChanged(frame);
+    int keyFrame = keyframeForFrame(frame);
+    if (keyFrame == -1) {
+        return;
     }
+
+    if (m_lastKeyFrame == keyFrame) {
+        return;
+    }
+
+    m_lastKeyFrame = keyFrame;
+    emit keyFrameChanged(keyFrame);
 }
 
 void TimelineWidget::setFrameCount(int count)
@@ -120,4 +129,24 @@ void TimelineWidget::on_toolButton_2_clicked()
 int TimelineWidget::intervalFromFps()
 {
     return 1000 / ui->fps->value();
+}
+
+int TimelineWidget::keyframeForFrame(int frame)
+{
+    const auto keyframes = m_animation->keyFrames();
+    if (keyframes.isEmpty()) {
+        return -1;
+    }
+
+    if (keyframes.contains(frame)) {
+        return frame;
+    }
+
+    auto it = keyframes.lowerBound(frame);
+    if (it == keyframes.begin()) {
+        return -1;
+    }
+
+    --it;
+    return it.key();
 }

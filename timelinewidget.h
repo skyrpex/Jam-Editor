@@ -44,9 +44,11 @@ private slots:
 
 private:
     int intervalFromFps();
+    int keyframeForFrame(int frame);
     Ui::TimelineWidget *ui;
     Animation *m_animation;
     QTimer m_timer;
+    int m_lastKeyFrame;
 };
 
 #endif // TIMELINEWIDGET_H
