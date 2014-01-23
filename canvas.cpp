@@ -1,5 +1,8 @@
 #include "canvas.h"
 #include "ui_canvas.h"
+#include "keyframe.h"
+#include "animation.h"
+#include "keyframeitem.h"
 
 Canvas::Canvas(QWidget *parent) :
     QWidget(parent),
@@ -18,6 +21,6 @@ void Canvas::setKeyFrame(KeyFrame *keyFrame)
 {
     m_scene.clear();
     if(keyFrame) {
-        m_scene.addPixmap(QPixmap::fromImage(keyFrame->image()));
+        m_scene.addItem(new KeyFrameItem(keyFrame));
     }
 }

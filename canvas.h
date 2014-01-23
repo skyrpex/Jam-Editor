@@ -1,14 +1,15 @@
 #ifndef CANVAS_H
 #define CANVAS_H
 
-#include "keyframe.h"
-
 #include <QGraphicsScene>
 #include <QWidget>
 
 namespace Ui {
 class Canvas;
 }
+
+class Animation;
+class KeyFrame;
 
 class Canvas : public QWidget
 {
@@ -23,6 +24,7 @@ public:
 private:
     Ui::Canvas *ui;
     QGraphicsScene m_scene;
+    Animation *m_animation;
 };
 
 #endif // CANVAS_H

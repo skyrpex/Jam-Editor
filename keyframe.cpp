@@ -29,6 +29,11 @@ QRectF KeyFrame::rect() const {
     return m_rect;
 }
 
+QPointF KeyFrame::offset() const
+{
+    return m_offset;
+}
+
 QVector<HitBox *> KeyFrame::hitBoxes() const {
     return m_hitBoxes;
 }
@@ -40,6 +45,11 @@ void KeyFrame::setFileName(const QString &fileName) {
 
     m_fileName = fileName;
     emit fileNameChanged(fileName);
+}
+
+void KeyFrame::setOffset(const QPointF &offset)
+{
+    m_offset = offset;
 }
 
 void KeyFrame::setRect(const QRectF &rect) {
