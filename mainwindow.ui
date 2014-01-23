@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Jam Editor [*]</string>
   </property>
   <widget class="Canvas" name="canvas"/>
   <widget class="QMenuBar" name="menuBar">
