@@ -23,6 +23,7 @@ public:
 
 public slots:
     void createKeyFrame();
+    void createKeyFrameAndEmit();
     void removeKeyFrame();
 
 private:

@@ -128,6 +128,7 @@ bool MainWindow::openFile(const QString &fileName)
 
     AnimationToJson converter;
     converter.fromJson(m_animation, QJsonDocument::fromJson(file.readAll()));
+    ui->timelineWidget->setAnimation(&m_animation);
     return true;
 }
 

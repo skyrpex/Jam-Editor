@@ -26,6 +26,7 @@ public:
 
 public slots:
     void createKeyFrame(int frame);
+    void createKeyFrameAndEmit(int frame);
     void removeKeyFrame(int frame);
     void moveKeyFrame(int frameFrom, int frameTo);
     void clearKeyFrames();

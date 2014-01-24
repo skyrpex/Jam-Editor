@@ -142,6 +142,12 @@ void QxTimeLineEditor::createKeyFrame(int frame)
     scene()->addItem( keyFrame );
     d->keyFrames.insert( frame, keyFrame );
 
+    //    emit keyFrameCreated( frame );
+}
+
+void QxTimeLineEditor::createKeyFrameAndEmit(int frame)
+{
+    createKeyFrame( frame );
     emit keyFrameCreated( frame );
 }
 
@@ -328,7 +334,7 @@ QxTimeLineEditorPrivate::QxTimeLineEditorPrivate(QxTimeLineEditor *widget)
     : q_ptr( widget )
     , menu( new QMenu( widget ) )
 {
-    createKeyFrameAction = menu->addAction( tr( "Create keyframe" ), this, SLOT( createKeyFrame() ) );
+    createKeyFrameAction = menu->addAction( tr( "Create keyframe" ), this, SLOT( createKeyFrameAndEmit() ) );
     removeKeyFrameAction = menu->addAction( tr( "Remove keyframe" ), this, SLOT( removeKeyFrame() ) );
 }
 
@@ -362,6 +368,12 @@ void QxTimeLineEditorPrivate::createKeyFrame()
 {
     Q_Q( QxTimeLineEditor );
     q->createKeyFrame( q->currentFrame() );
+}
+
+void QxTimeLineEditorPrivate::createKeyFrameAndEmit()
+{
+    Q_Q( QxTimeLineEditor );
+    q->createKeyFrameAndEmit( q->currentFrame() );
 }
 
 void QxTimeLineEditorPrivate::removeKeyFrame()

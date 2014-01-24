@@ -29,10 +29,12 @@ void TimelineEditor::setAnimation(Animation *animation)
 
     m_animation = animation;
 
-//    if(m_animation) {
+
+    if(m_animation) {
+        setKeyFrames(m_animation->keyFrames().keys());
 //        connect(m_animation, SIGNAL(keyFrameInserted(int)), this, SLOT(createKeyFrame(int)));
 //        connect(m_animation, SIGNAL(keyFrameRemoved(int)), this, SLOT(removeKeyFrame(int)));
-//    }
+    }
 }
 
 void TimelineEditor::onKeyFrameCreated(int frame)
