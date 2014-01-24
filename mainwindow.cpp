@@ -78,8 +78,9 @@ bool MainWindow::newFile()
         return false;
     }
 
-    m_animation.clear();
+    ui->canvas->setKeyFrame(nullptr);
     ui->timelineWidget->clear();
+    m_animation.clear();
     return true;
 }
 
