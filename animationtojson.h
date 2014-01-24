@@ -23,6 +23,8 @@ private:
     QJsonObject toJsonObject(const QPointF &point);
     QJsonObject toJsonObject(const QRectF &rect);
 
+    void fromJsonObject(Animation &animation, const QJsonObject &object);
+    void fromJsonObject(KeyFrame &keyFrame, const QJsonObject &object);
     QPointF pointFromJsonObject(const QJsonObject &object);
 };
 

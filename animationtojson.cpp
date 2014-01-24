@@ -19,10 +19,7 @@ QJsonDocument AnimationToJson::toJson(const Animation &animation)
 
 void AnimationToJson::fromJson(Animation &animation, const QJsonDocument &json)
 {
-    const QJsonObject object = json.object();
-    animation.setFrameCount(object.find("frameCount").value().toInt());
-    animation.setFps(object.find("fps").value().toInt());
-    animation.setOrigin(pointFromJsonObject(object.find("origin").value().toObject()));
+    fromJsonObject(animation, json.object());
 }
 
 QJsonObject AnimationToJson::toJsonObject(const Animation &animation)
@@ -68,6 +65,28 @@ QJsonObject AnimationToJson::toJsonObject(const QRectF &rect)
     object.insert("topLeft", toJsonObject(rect.topLeft()));
     object.insert("bottomRight", toJsonObject(rect.bottomRight()));
     return object;
+}
+
+void AnimationToJson::fromJsonObject(Animation &animation, const QJsonObject &object)
+{
+    animation.setFrameCount(object.find("frameCount").value().toInt());
+    animation.setFps(object.find("fps").value().toInt());
+    animation.setOrigin(pointFromJsonObject(object.find("origin").value().toObject()));
+
+    QJsonArray keyFramesArray = object.find("keyFrames").value().toArray();
+    for(auto keyFrameValue : keyFramesArray) {
+        QJsonObject keyFrameObject = keyFrameValue.toObject();
+        int frame = keyFrameObject.find("frame").value().toInt();
+
+        auto keyFrame = new KeyFrame;
+        fromJsonObject(*keyFrame, keyFrameObject.find("data").value().toObject());
+        animation.insertKeyFrame(frame, keyFrame);
+    }
+}
+
+void AnimationToJson::fromJsonObject(KeyFrame &keyFrame, const QJsonObject &object)
+{
+    keyFrame.setFileName(object.find("fileName").value().toString());
 }
 
 QPointF AnimationToJson::pointFromJsonObject(const QJsonObject &object)
