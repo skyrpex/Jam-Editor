@@ -16,10 +16,14 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    m_actionGroup(this)
 {
     ui->setupUi(this);
     ui->timelineWidget->setAnimation(&m_animation);
+    ui->actionMove_mode->setActionGroup(&m_actionGroup);
+    ui->actionDraw_damage_hitbox->setActionGroup(&m_actionGroup);
+    ui->actionDraw_body_hitbox->setActionGroup(&m_actionGroup);
 
     connect(ui->timelineWidget, SIGNAL(keyFrameChanged(int)), this, SLOT(onKeyFrameChanged(int)));
 
@@ -150,4 +154,19 @@ bool MainWindow::maybeSave()
            return false;
     }
     return true;
+}
+
+void MainWindow::on_actionMove_mode_triggered()
+{
+
+}
+
+void MainWindow::on_actionDraw_damage_hitbox_triggered()
+{
+
+}
+
+void MainWindow::on_actionDraw_body_hitbox_triggered()
+{
+
 }

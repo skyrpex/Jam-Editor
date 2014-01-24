@@ -42,6 +42,9 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionMove_mode"/>
+   <addaction name="actionDraw_damage_hitbox"/>
+   <addaction name="actionDraw_body_hitbox"/>
   </widget>
   <widget class="QDockWidget" name="dockWidget">
    <property name="windowTitle">
@@ -82,6 +85,30 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionMove_mode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Move mode</string>
+   </property>
+  </action>
+  <action name="actionDraw_damage_hitbox">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Draw damage hitbox</string>
+   </property>
+  </action>
+  <action name="actionDraw_body_hitbox">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Draw body hitbox</string>
    </property>
   </action>
  </widget>

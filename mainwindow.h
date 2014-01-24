@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QActionGroup>
 
 #include "animation.h"
 
@@ -27,6 +28,12 @@ private slots:
     void on_actionSave_triggered();
     void on_actionExit_triggered();
 
+    void on_actionMove_mode_triggered();
+
+    void on_actionDraw_damage_hitbox_triggered();
+
+    void on_actionDraw_body_hitbox_triggered();
+
 private:
     bool newFile();
     bool save();
@@ -37,6 +44,7 @@ private:
     bool maybeSave();
     Ui::MainWindow *ui;
     Animation m_animation;
+    QActionGroup m_actionGroup;
 };
 
 #endif // MAINWINDOW_H
