@@ -87,9 +87,17 @@ void AnimationToJson::fromJsonObject(Animation &animation, const QJsonObject &ob
 void AnimationToJson::fromJsonObject(KeyFrame &keyFrame, const QJsonObject &object)
 {
     keyFrame.setFileName(object.find("fileName").value().toString());
+    keyFrame.setOffset(pointFromJsonObject(object.find("offset").value().toObject()));
+    keyFrame.setRect(rectFromJsonObject(object.find("rect").value().toObject()));
 }
 
 QPointF AnimationToJson::pointFromJsonObject(const QJsonObject &object)
 {
     return QPointF(object.find("x").value().toDouble(), object.find("y").value().toDouble());
+}
+
+QRectF AnimationToJson::rectFromJsonObject(const QJsonObject &object)
+{
+    return QRectF(pointFromJsonObject(object.find("topLeft").value().toObject()),
+                  pointFromJsonObject(object.find("bottomRight").value().toObject()));
 }

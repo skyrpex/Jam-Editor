@@ -26,6 +26,7 @@ private:
     void fromJsonObject(Animation &animation, const QJsonObject &object);
     void fromJsonObject(KeyFrame &keyFrame, const QJsonObject &object);
     QPointF pointFromJsonObject(const QJsonObject &object);
+    QRectF rectFromJsonObject(const QJsonObject &object);
 };
 
 #endif // ANIMATIONTOJSON_H
