@@ -80,10 +80,7 @@ bool MainWindow::newFile()
         return false;
     }
 
-    ui->canvas->setKeyFrame(nullptr);
-    ui->propertyEditor->setKeyFrame(nullptr);
-    ui->timelineWidget->clear();
-    m_animation.clear();
+    clear();
     return true;
 }
 
@@ -134,8 +131,7 @@ bool MainWindow::openFile(const QString &fileName)
         return false;
     }
 
-    m_animation.clear();
-    ui->timelineWidget->clear();
+    clear();
 
     AnimationToJson converter;
     converter.fromJson(m_animation, QJsonDocument::fromJson(file.readAll()));
@@ -167,6 +163,14 @@ bool MainWindow::maybeSave()
            return false;
     }
     return true;
+}
+
+void MainWindow::clear()
+{
+    ui->canvas->setKeyFrame(nullptr);
+    ui->propertyEditor->setKeyFrame(nullptr);
+    ui->timelineWidget->clear();
+    m_animation.clear();
 }
 
 void MainWindow::on_actionMove_mode_triggered()

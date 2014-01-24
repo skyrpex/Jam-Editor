@@ -42,6 +42,7 @@ private:
     bool open();
     bool openFile(const QString &fileName);
     bool maybeSave();
+    void clear();
     Ui::MainWindow *ui;
     Animation m_animation;
     QActionGroup m_actionGroup;
