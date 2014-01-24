@@ -37,7 +37,6 @@ void PropertyEditor::on_add_clicked()
 
     m_keyFrame->setCustomProperty(name.toStdString().c_str(), 0.0);
     ui->comboBox->addItem(name);
-    ui->doubleSpinBox->setValue(0.0);
 }
 
 void PropertyEditor::on_remove_clicked()

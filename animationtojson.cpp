@@ -50,6 +50,13 @@ QJsonObject AnimationToJson::toJsonObject(const KeyFrame &keyFrame)
     object.insert("rect", toJsonObject(keyFrame.rect()));
     object.insert("offset", toJsonObject(keyFrame.offset()));
 
+    QJsonObject customPropertiesObject;
+    const auto customProperties = keyFrame.customProperties();
+    for(auto it = customProperties.begin(); it != customProperties.end(); ++it) {
+        customPropertiesObject.insert(it.key(), it.value());
+    }
+    object.insert("customProperties", customPropertiesObject);
+
     QJsonArray hitBoxes;
     for (HitBox *hitBox : keyFrame.hitBoxes()) {
         hitBoxes.append(toJsonObject(*hitBox));
@@ -104,6 +111,19 @@ void AnimationToJson::fromJsonObject(KeyFrame &keyFrame, const QJsonObject &obje
     keyFrame.setFileName(object.find("fileName").value().toString());
     keyFrame.setOffset(pointFromJsonObject(object.find("offset").value().toObject()));
     keyFrame.setRect(rectFromJsonObject(object.find("rect").value().toObject()));
+
+    QJsonObject customPropertiesObject = object.find("customProperties").value().toObject();
+//    qDebug() << customPropertiesObject;
+    for (auto it = customPropertiesObject.begin(); it != customPropertiesObject.end(); ++it) {
+        keyFrame.setCustomProperty(it.key(), it.value().toDouble());
+    }
+//    for (const auto &value : customPropertiesObject) {
+//        value.
+//        qDebug() << value;
+//        for (auto it = value.begin(); it != value.end(); ++it) {
+//            keyFrame.setCustomProperty(it.key(), it.value().toDouble());
+//        }
+//    }
 
     for (const QJsonValue &value : object.find("hitBoxes").value().toArray()) {
         auto hitBox = new HitBox();
