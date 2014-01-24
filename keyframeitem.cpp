@@ -4,7 +4,8 @@
 KeyFrameItem::KeyFrameItem(KeyFrame *keyFrame) :
     m_keyFrame(keyFrame)
 {
-    setFlags(ItemIsMovable | ItemSendsScenePositionChanges);
+    setFlags(ItemIsMovable | ItemIsSelectable | ItemSendsScenePositionChanges);
+    setShapeMode(BoundingRectShape);
 
     Q_ASSERT(keyFrame);
     setPixmap(QPixmap::fromImage(keyFrame->image()));
