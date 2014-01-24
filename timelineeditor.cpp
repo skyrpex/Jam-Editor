@@ -39,7 +39,7 @@ void TimelineEditor::setAnimation(Animation *animation)
 
 void TimelineEditor::onKeyFrameCreated(int frame)
 {
-    qDebug() << __FUNCTION__ << frame;
+//    qDebug() << __FUNCTION__ << frame;
     if(!m_animation) {
         return;
     }
@@ -56,7 +56,7 @@ void TimelineEditor::onKeyFrameCreated(int frame)
 
 void TimelineEditor::onKeyFrameRemoved(int frame)
 {
-    qDebug() << __FUNCTION__ << frame;
+//    qDebug() << __FUNCTION__ << frame;
     if(!m_animation) {
         return;
     }
@@ -65,7 +65,7 @@ void TimelineEditor::onKeyFrameRemoved(int frame)
 
 void TimelineEditor::onKeyFrameMoved(int frameFrom, int frameTo)
 {
-    qDebug() << __FUNCTION__ << frameFrom << frameTo;
+//    qDebug() << __FUNCTION__ << frameFrom << frameTo;
     if(!m_animation) {
         return;
     }
@@ -75,7 +75,7 @@ void TimelineEditor::onKeyFrameMoved(int frameFrom, int frameTo)
 
 void TimelineEditor::onKeyFrameReplaced(int frameFrom, int frameTo)
 {
-    qDebug() << __FUNCTION__ << frameFrom << frameTo;
+//    qDebug() << __FUNCTION__ << frameFrom << frameTo;
     if(!m_animation) {
         return;
     }
@@ -86,10 +86,10 @@ void TimelineEditor::onKeyFrameReplaced(int frameFrom, int frameTo)
 
 void TimelineEditor::onKeyFramesCleared()
 {
-    qDebug() << __FUNCTION__;
+//    qDebug() << __FUNCTION__;
 }
 
 void TimelineEditor::showKeyFrameProperties()
 {
-    qDebug() << __FUNCTION__;
+//    qDebug() << __FUNCTION__;
 }
