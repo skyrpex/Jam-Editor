@@ -144,6 +144,7 @@ bool MainWindow::openFile(const QString &fileName)
     KeyFrame *keyFrame = m_animation.keyFrames().value(0);
     if (keyFrame) {
         ui->canvas->setKeyFrame(keyFrame);
+        ui->propertyEditor->setKeyFrame(keyFrame);
     }
     return true;
 }
