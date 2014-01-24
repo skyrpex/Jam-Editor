@@ -136,6 +136,11 @@ bool MainWindow::openFile(const QString &fileName)
     AnimationToJson converter;
     converter.fromJson(m_animation, QJsonDocument::fromJson(file.readAll()));
     ui->timelineWidget->setAnimation(&m_animation);
+
+    KeyFrame *keyFrame = m_animation.keyFrames().value(0);
+    if (keyFrame) {
+        ui->canvas->setKeyFrame(keyFrame);
+    }
     return true;
 }
 
