@@ -17,6 +17,14 @@ QJsonDocument AnimationToJson::toJson(const Animation &animation)
     return QJsonDocument(toJsonObject(animation));
 }
 
+void AnimationToJson::fromJson(Animation &animation, const QJsonDocument &json)
+{
+    const QJsonObject object = json.object();
+    animation.setFrameCount(object.find("frameCount").value().toInt());
+    animation.setFps(object.find("fps").value().toInt());
+    animation.setOrigin(pointFromJsonObject(object.find("origin").value().toObject()));
+}
+
 QJsonObject AnimationToJson::toJsonObject(const Animation &animation)
 {
     QJsonObject animationObject;
@@ -60,4 +68,9 @@ QJsonObject AnimationToJson::toJsonObject(const QRectF &rect)
     object.insert("topLeft", toJsonObject(rect.topLeft()));
     object.insert("bottomRight", toJsonObject(rect.bottomRight()));
     return object;
+}
+
+QPointF AnimationToJson::pointFromJsonObject(const QJsonObject &object)
+{
+    return QPointF(object.find("x").value().toDouble(), object.find("y").value().toDouble());
 }

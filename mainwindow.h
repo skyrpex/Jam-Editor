@@ -28,9 +28,12 @@ private slots:
     void on_actionExit_triggered();
 
 private:
+    bool newFile();
     bool save();
     bool saveAs();
     bool saveFile(const QString &fileName);
+    bool open();
+    bool openFile(const QString &fileName);
     bool maybeSave();
     Ui::MainWindow *ui;
     Animation m_animation;

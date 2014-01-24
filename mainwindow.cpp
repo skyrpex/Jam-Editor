@@ -12,6 +12,8 @@
 #include <QCloseEvent>
 #include <QFileDialog>
 
+#include <QJsonObject>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -46,20 +48,12 @@ void MainWindow::onKeyFrameChanged(int keyFrame)
 
 void MainWindow::on_actionNew_triggered()
 {
-    if(!maybeSave()) {
-        return;
-    }
-
-    m_animation.clear();
-    ui->timelineWidget->clear();
+    newFile();
 }
 
 void MainWindow::on_actionOpen_triggered()
 {
-    if(!maybeSave()) {
-        return;
-    }
-
+    open();
 }
 
 void MainWindow::on_actionSave_triggered()
@@ -70,6 +64,16 @@ void MainWindow::on_actionSave_triggered()
 void MainWindow::on_actionExit_triggered()
 {
     close();
+}
+
+bool MainWindow::newFile()
+{
+    if (!maybeSave()) {
+        return false;
+    }
+
+    m_animation.clear();
+    ui->timelineWidget->clear();
 }
 
 bool MainWindow::save()
@@ -96,6 +100,34 @@ bool MainWindow::saveFile(const QString &fileName)
     file.open(QIODevice::WriteOnly);
     QTextStream stream(&file);
     stream << json;
+    return true;
+}
+
+bool MainWindow::open()
+{
+    if(!maybeSave()) {
+        return false;
+    }
+
+    QString fileName = QFileDialog::getOpenFileName(this);
+    if (fileName.isEmpty())
+        return false;
+
+    return openFile(fileName);
+}
+
+bool MainWindow::openFile(const QString &fileName)
+{
+    QFile file(fileName);
+    if(!file.open(QIODevice::ReadOnly)) {
+        return false;
+    }
+
+    m_animation.clear();
+    ui->timelineWidget->clear();
+
+    AnimationToJson converter;
+    converter.fromJson(m_animation, QJsonDocument::fromJson(file.readAll()));
     return true;
 }
 
