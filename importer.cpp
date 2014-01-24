@@ -44,7 +44,7 @@ QRectF Importer::mergedRects() const
 void Importer::on_browse_clicked()
 {
     // Add the image
-    QString fileName = QFileDialog::getOpenFileName();
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Image"), QString(), "PNG files (*.png)");
     QImage image(fileName);
     if(image.isNull())
         return;

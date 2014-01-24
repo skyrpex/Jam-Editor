@@ -84,7 +84,7 @@ bool MainWindow::save()
 
 bool MainWindow::saveAs()
 {
-    QString fileName = QFileDialog::getSaveFileName(this);
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), QString(), "JSON files (*.json)");
     if (fileName.isEmpty())
         return false;
 
@@ -109,7 +109,7 @@ bool MainWindow::open()
         return false;
     }
 
-    QString fileName = QFileDialog::getOpenFileName(this);
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), QString(), "JSON files (*.json)");
     if (fileName.isEmpty())
         return false;
 
