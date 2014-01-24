@@ -80,6 +80,7 @@ bool MainWindow::newFile()
 
     m_animation.clear();
     ui->timelineWidget->clear();
+    return true;
 }
 
 bool MainWindow::save()
