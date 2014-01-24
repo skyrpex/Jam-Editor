@@ -38,7 +38,6 @@ private:
     Ui::Canvas *ui;
     Scene m_scene;
     Animation *m_animation;
-    Mode m_mode;
 };
 
 #endif // CANVAS_H

@@ -40,9 +40,6 @@
    </item>
    <item>
     <widget class="GraphicsView" name="graphicsView">
-     <property name="dragMode">
-      <enum>QGraphicsView::ScrollHandDrag</enum>
-     </property>
      <property name="rubberBandSelectionMode">
       <enum>Qt::IntersectsItemBoundingRect</enum>
      </property>

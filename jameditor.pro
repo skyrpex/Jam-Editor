@@ -27,7 +27,8 @@ SOURCES += main.cpp\
     keyframeitem.cpp \
     scene.cpp \
     graphicsview.cpp \
-    animationtojson.cpp
+    animationtojson.cpp \
+    hitboxitem.cpp
 
 HEADERS  += mainwindow.h \
     qxtimelineeditor/Constants.hpp \
@@ -45,7 +46,8 @@ HEADERS  += mainwindow.h \
     keyframeitem.h \
     scene.h \
     graphicsview.h \
-    animationtojson.h
+    animationtojson.h \
+    hitboxitem.h
 
 FORMS    += mainwindow.ui \
     timelinewidget.ui \
