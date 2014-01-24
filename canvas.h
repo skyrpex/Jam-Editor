@@ -23,6 +23,9 @@ public:
 
     void setKeyFrame(KeyFrame *keyFrame);
 
+private slots:
+    void on_resetZoom_clicked();
+
 private:
     Ui::Canvas *ui;
     Scene m_scene;

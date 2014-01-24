@@ -24,3 +24,8 @@ void Canvas::setKeyFrame(KeyFrame *keyFrame)
         m_scene.addItem(new KeyFrameItem(keyFrame));
     }
 }
+
+void Canvas::on_resetZoom_clicked()
+{
+    ui->graphicsView->resetMatrix();
+}
