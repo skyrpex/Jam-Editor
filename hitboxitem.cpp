@@ -13,6 +13,7 @@ const QBrush DamageBrush{QColor{255, 0, 0, 30}};
 HitBoxItem::HitBoxItem(HitBox *hitBox)
     : m_hitBox(hitBox)
 {
+    setFlags(ItemIsMovable | ItemIsSelectable | ItemSendsScenePositionChanges);
     setRect(hitBox->rect());
     setPen(hitBox->group() == "body"? BodyPen : DamagePen);
     setBrush(hitBox->group() == "body"? BodyBrush : DamageBrush);

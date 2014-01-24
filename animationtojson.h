@@ -5,6 +5,7 @@
 
 class Animation;
 class KeyFrame;
+class HitBox;
 class QPointF;
 class QRectF;
 
@@ -20,11 +21,13 @@ public:
 private:
     QJsonObject toJsonObject(const Animation &animation);
     QJsonObject toJsonObject(const KeyFrame &keyFrame);
+    QJsonObject toJsonObject(const HitBox &hitBox);
     QJsonObject toJsonObject(const QPointF &point);
     QJsonObject toJsonObject(const QRectF &rect);
 
     void fromJsonObject(Animation &animation, const QJsonObject &object);
     void fromJsonObject(KeyFrame &keyFrame, const QJsonObject &object);
+    void fromJsonObject(HitBox &hitBox, const QJsonObject &object);
     QPointF pointFromJsonObject(const QJsonObject &object);
     QRectF rectFromJsonObject(const QJsonObject &object);
 };

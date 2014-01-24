@@ -5,6 +5,7 @@ KeyFrameItem::KeyFrameItem(KeyFrame *keyFrame) :
     m_keyFrame(keyFrame)
 {
     setFlags(ItemIsMovable | ItemIsSelectable | ItemSendsScenePositionChanges);
+    setZValue(-1.0);
     setShapeMode(BoundingRectShape);
 
     Q_ASSERT(keyFrame);

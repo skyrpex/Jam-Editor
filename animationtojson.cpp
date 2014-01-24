@@ -1,6 +1,7 @@
 #include "animationtojson.h"
 #include "animation.h"
 #include "keyframe.h"
+#include "hitbox.h"
 
 #include <QJsonObject>
 #include <QJsonValue>
@@ -48,6 +49,20 @@ QJsonObject AnimationToJson::toJsonObject(const KeyFrame &keyFrame)
     object.insert("fileName", keyFrame.fileName());
     object.insert("rect", toJsonObject(keyFrame.rect()));
     object.insert("offset", toJsonObject(keyFrame.offset()));
+
+    QJsonArray hitBoxes;
+    for (HitBox *hitBox : keyFrame.hitBoxes()) {
+        hitBoxes.append(toJsonObject(*hitBox));
+    }
+    object.insert("hitBoxes", hitBoxes);
+    return object;
+}
+
+QJsonObject AnimationToJson::toJsonObject(const HitBox &hitBox)
+{
+    QJsonObject object;
+    object.insert("group", hitBox.group());
+    object.insert("rect", toJsonObject(hitBox.rect()));
     return object;
 }
 
@@ -89,6 +104,18 @@ void AnimationToJson::fromJsonObject(KeyFrame &keyFrame, const QJsonObject &obje
     keyFrame.setFileName(object.find("fileName").value().toString());
     keyFrame.setOffset(pointFromJsonObject(object.find("offset").value().toObject()));
     keyFrame.setRect(rectFromJsonObject(object.find("rect").value().toObject()));
+
+    for (const QJsonValue &value : object.find("hitBoxes").value().toArray()) {
+        auto hitBox = new HitBox();
+        fromJsonObject(*hitBox, value.toObject());
+        keyFrame.insertHitBox(keyFrame.hitBoxes().count(), hitBox);
+    }
+}
+
+void AnimationToJson::fromJsonObject(HitBox &hitBox, const QJsonObject &object)
+{
+    hitBox.setGroup(object.find("group").value().toString());
+    hitBox.setRect(rectFromJsonObject(object.find("rect").value().toObject()));
 }
 
 QPointF AnimationToJson::pointFromJsonObject(const QJsonObject &object)
