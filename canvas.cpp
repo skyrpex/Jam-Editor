@@ -6,7 +6,8 @@
 
 Canvas::Canvas(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::Canvas)
+    ui(new Ui::Canvas),
+    m_mode(MoveMode)
 {
     ui->setupUi(this);
     ui->graphicsView->setScene(&m_scene);
@@ -23,6 +24,11 @@ void Canvas::setKeyFrame(KeyFrame *keyFrame)
     if(keyFrame) {
         m_scene.addItem(new KeyFrameItem(keyFrame));
     }
+}
+
+void Canvas::setMode(Canvas::Mode mode)
+{
+    m_mode = mode;
 }
 
 void Canvas::on_resetZoom_clicked()

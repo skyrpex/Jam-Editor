@@ -28,6 +28,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->timelineWidget, SIGNAL(keyFrameChanged(int)), this, SLOT(onKeyFrameChanged(int)));
 
     setWindowModified(true);
+
+    ui->actionMove_mode->setChecked(true);
 }
 
 MainWindow::~MainWindow()
@@ -158,15 +160,15 @@ bool MainWindow::maybeSave()
 
 void MainWindow::on_actionMove_mode_triggered()
 {
-
+    ui->canvas->setMode(Canvas::MoveMode);
 }
 
 void MainWindow::on_actionDraw_damage_hitbox_triggered()
 {
-
+    ui->canvas->setMode(Canvas::DrawDamageHitBoxMode);
 }
 
 void MainWindow::on_actionDraw_body_hitbox_triggered()
 {
-
+    ui->canvas->setMode(Canvas::DrawBodyHitBoxMode);
 }
