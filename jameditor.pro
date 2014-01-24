@@ -28,7 +28,8 @@ SOURCES += main.cpp\
     scene.cpp \
     graphicsview.cpp \
     animationtojson.cpp \
-    hitboxitem.cpp
+    hitboxitem.cpp \
+    propertyeditor.cpp
 
 HEADERS  += mainwindow.h \
     qxtimelineeditor/Constants.hpp \
@@ -47,12 +48,14 @@ HEADERS  += mainwindow.h \
     scene.h \
     graphicsview.h \
     animationtojson.h \
-    hitboxitem.h
+    hitboxitem.h \
+    propertyeditor.h
 
 FORMS    += mainwindow.ui \
     timelinewidget.ui \
     importer.ui \
-    canvas.ui
+    canvas.ui \
+    propertyeditor.ui
 
 include(qxmesh/QxMesh.pri)
 

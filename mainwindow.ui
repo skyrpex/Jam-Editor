@@ -55,6 +55,15 @@
    </attribute>
    <widget class="TimelineWidget" name="timelineWidget"/>
   </widget>
+  <widget class="QDockWidget" name="dockWidget_2">
+   <property name="windowTitle">
+    <string>Property editor</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="PropertyEditor" name="propertyEditor"/>
+  </widget>
   <action name="actionNew">
    <property name="text">
     <string>New</string>
@@ -124,6 +133,12 @@
    <class>Canvas</class>
    <extends>QWidget</extends>
    <header>canvas.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PropertyEditor</class>
+   <extends>QWidget</extends>
+   <header>propertyeditor.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
