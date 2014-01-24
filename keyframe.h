@@ -4,6 +4,7 @@
 #include <QString>
 #include <QRectF>
 #include <QVector>
+#include <QMap>
 
 class HitBox;
 
@@ -19,6 +20,7 @@ public:
     QRectF rect() const;
     QPointF offset() const;
     QVector<HitBox *> hitBoxes() const;
+    QMap<QString, qreal> customProperties() const;
 
 public slots:
     void setFileName(const QString &fileName);
@@ -26,6 +28,8 @@ public slots:
     void setOffset(const QPointF &offset);
     void insertHitBox(int i, HitBox *hitBox);
     HitBox *takeHitBox(int i);
+    void setCustomProperty(const QString &name, qreal value);
+    void removeCustomProperty(const QString &name);
 
 signals:
     void fileNameChanged(const QString &fileName);
@@ -39,4 +43,5 @@ private:
     QRectF m_rect;
     QPointF m_offset;
     QVector<HitBox *> m_hitBoxes;
+    QMap<QString, qreal> m_customProperties;
 };

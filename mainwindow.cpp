@@ -49,7 +49,9 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::onKeyFrameChanged(int keyFrame)
 {
-    ui->canvas->setKeyFrame(m_animation.keyFrames().value(keyFrame));
+    auto k = m_animation.keyFrames().value(keyFrame);
+    ui->canvas->setKeyFrame(k);
+    ui->propertyEditor->setKeyFrame(k);
 }
 
 void MainWindow::on_actionNew_triggered()
@@ -79,6 +81,7 @@ bool MainWindow::newFile()
     }
 
     ui->canvas->setKeyFrame(nullptr);
+    ui->propertyEditor->setKeyFrame(nullptr);
     ui->timelineWidget->clear();
     m_animation.clear();
     return true;

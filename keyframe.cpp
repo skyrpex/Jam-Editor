@@ -38,6 +38,11 @@ QVector<HitBox *> KeyFrame::hitBoxes() const {
     return m_hitBoxes;
 }
 
+QMap<QString, qreal> KeyFrame::customProperties() const
+{
+    return m_customProperties;
+}
+
 void KeyFrame::setFileName(const QString &fileName) {
     if (m_fileName == fileName) {
         return;
@@ -74,4 +79,14 @@ HitBox *KeyFrame::takeHitBox(int i) {
     HitBox *hitBox = m_hitBoxes.takeAt(i);
     emit hitBoxRemoved(i, hitBox);
     return hitBox;
+}
+
+void KeyFrame::setCustomProperty(const QString &name, qreal value)
+{
+    m_customProperties[name] = value;
+}
+
+void KeyFrame::removeCustomProperty(const QString &name)
+{
+    m_customProperties.remove(name);
 }
