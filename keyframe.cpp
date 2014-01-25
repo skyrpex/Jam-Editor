@@ -81,6 +81,11 @@ HitBox *KeyFrame::takeHitBox(int i) {
     return hitBox;
 }
 
+void KeyFrame::removeHitBox(HitBox *hitBox)
+{
+    m_hitBoxes.remove(m_hitBoxes.indexOf(hitBox));
+}
+
 void KeyFrame::setCustomProperty(const QString &name, qreal value)
 {
     m_customProperties[name] = value;

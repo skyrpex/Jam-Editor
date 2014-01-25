@@ -8,6 +8,8 @@
 #include <QJsonArray>
 #include <QVariant>
 #include <QDebug>
+#include <QDir>
+#include <QFileInfo>
 
 AnimationToJson::AnimationToJson()
 {
@@ -18,9 +20,9 @@ QJsonDocument AnimationToJson::toJson(const Animation &animation)
     return QJsonDocument(toJsonObject(animation));
 }
 
-void AnimationToJson::fromJson(Animation &animation, const QJsonDocument &json)
+void AnimationToJson::fromJson(Animation &animation, const QJsonDocument &json, const QString &fileName)
 {
-    fromJsonObject(animation, json.object());
+    fromJsonObject(animation, json.object(), fileName);
 }
 
 QJsonObject AnimationToJson::toJsonObject(const Animation &animation)
@@ -46,7 +48,7 @@ QJsonObject AnimationToJson::toJsonObject(const Animation &animation)
 QJsonObject AnimationToJson::toJsonObject(const KeyFrame &keyFrame)
 {
     QJsonObject object;
-    object.insert("fileName", keyFrame.fileName());
+    object.insert("fileName", QFileInfo(keyFrame.fileName()).fileName());
     object.insert("rect", toJsonObject(keyFrame.rect()));
     object.insert("offset", toJsonObject(keyFrame.offset()));
 
@@ -89,7 +91,7 @@ QJsonObject AnimationToJson::toJsonObject(const QRectF &rect)
     return object;
 }
 
-void AnimationToJson::fromJsonObject(Animation &animation, const QJsonObject &object)
+void AnimationToJson::fromJsonObject(Animation &animation, const QJsonObject &object, const QString &fileName)
 {
     animation.setFrameCount(object.find("frameCount").value().toInt());
     animation.setFps(object.find("fps").value().toInt());
@@ -101,14 +103,14 @@ void AnimationToJson::fromJsonObject(Animation &animation, const QJsonObject &ob
         int frame = keyFrameObject.find("frame").value().toInt();
 
         auto keyFrame = new KeyFrame;
-        fromJsonObject(*keyFrame, keyFrameObject.find("data").value().toObject());
+        fromJsonObject(*keyFrame, keyFrameObject.find("data").value().toObject(), fileName);
         animation.insertKeyFrame(frame, keyFrame);
     }
 }
 
-void AnimationToJson::fromJsonObject(KeyFrame &keyFrame, const QJsonObject &object)
+void AnimationToJson::fromJsonObject(KeyFrame &keyFrame, const QJsonObject &object, const QString &fileName)
 {
-    keyFrame.setFileName(object.find("fileName").value().toString());
+    keyFrame.setFileName(QFileInfo(fileName).dir().absolutePath() + "/" + object.find("fileName").value().toString());
     keyFrame.setOffset(pointFromJsonObject(object.find("offset").value().toObject()));
     keyFrame.setRect(rectFromJsonObject(object.find("rect").value().toObject()));
 

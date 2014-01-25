@@ -16,7 +16,7 @@ public:
 
     QJsonDocument toJson(const Animation &animation);
 
-    void fromJson(Animation &animation, const QJsonDocument &json);
+    void fromJson(Animation &animation, const QJsonDocument &json, const QString &fileName);
 
 private:
     QJsonObject toJsonObject(const Animation &animation);
@@ -25,8 +25,8 @@ private:
     QJsonObject toJsonObject(const QPointF &point);
     QJsonObject toJsonObject(const QRectF &rect);
 
-    void fromJsonObject(Animation &animation, const QJsonObject &object);
-    void fromJsonObject(KeyFrame &keyFrame, const QJsonObject &object);
+    void fromJsonObject(Animation &animation, const QJsonObject &object, const QString &fileName);
+    void fromJsonObject(KeyFrame &keyFrame, const QJsonObject &object, const QString &fileName);
     void fromJsonObject(HitBox &hitBox, const QJsonObject &object);
     QPointF pointFromJsonObject(const QJsonObject &object);
     QRectF rectFromJsonObject(const QJsonObject &object);

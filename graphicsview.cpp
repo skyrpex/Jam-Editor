@@ -7,6 +7,7 @@
 #include <QGraphicsLineItem>
 #include <QMouseEvent>
 #include <QWheelEvent>
+#include <QKeyEvent>
 #include <QDebug>
 
 GraphicsView::GraphicsView(QWidget *parent)
@@ -52,6 +53,20 @@ void GraphicsView::setKeyFrame(KeyFrame *keyFrame)
         }
         connect(keyFrame, &KeyFrame::hitBoxInserted, this, &GraphicsView::insertHitBox);
         connect(keyFrame, &KeyFrame::hitBoxRemoved, this, &GraphicsView::removeHitBox);
+    }
+}
+
+void GraphicsView::keyPressEvent(QKeyEvent *event)
+{
+    if (scene() && event->key() == Qt::Key_Delete) {
+        for (QGraphicsItem *item : scene()->selectedItems()) {
+            auto hitBoxItem = dynamic_cast<HitBoxItem *>(item);
+            if (hitBoxItem) {
+                m_keyFrame->removeHitBox(hitBoxItem->hitBox());
+                delete hitBoxItem->hitBox();
+                delete item;
+            }
+        }
     }
 }
 

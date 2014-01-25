@@ -50,7 +50,7 @@ KeyFrame *Animation::takeKeyFrame(int i)
 
 void Animation::clear()
 {
-    m_fps = 15;
+    m_fps = 60;
     m_frameCount = 15;
     for(int i : m_keyFrames.keys()) {
         delete takeKeyFrame(i);

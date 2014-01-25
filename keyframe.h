@@ -28,6 +28,7 @@ public slots:
     void setOffset(const QPointF &offset);
     void insertHitBox(int i, HitBox *hitBox);
     HitBox *takeHitBox(int i);
+    void removeHitBox(HitBox *hitBox);
     void setCustomProperty(const QString &name, qreal value);
     void removeCustomProperty(const QString &name);
 

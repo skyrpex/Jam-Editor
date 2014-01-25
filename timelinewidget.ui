@@ -47,7 +47,7 @@
      <item>
       <widget class="QSpinBox" name="fps">
        <property name="value">
-        <number>15</number>
+        <number>60</number>
        </property>
       </widget>
      </item>
@@ -60,6 +60,9 @@
      </item>
      <item>
       <widget class="QSpinBox" name="frameCount">
+       <property name="maximum">
+        <number>9999</number>
+       </property>
        <property name="value">
         <number>15</number>
        </property>
