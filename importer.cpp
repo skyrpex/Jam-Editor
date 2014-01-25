@@ -34,11 +34,12 @@ QImage Importer::image() const
 
 QRectF Importer::mergedRects() const
 {
-    QRectF rect;
-    foreach(QGraphicsItem *item, m_scene.selectedItems()) {
-        rect |= item->sceneBoundingRect();
-    }
-    return rect;
+    return m_scene.sceneRect();
+//    QRectF rect;
+//    foreach(QGraphicsItem *item, m_scene.selectedItems()) {
+//        rect |= item->sceneBoundingRect();
+//    }
+//    return rect;
 }
 
 void Importer::on_browse_clicked()

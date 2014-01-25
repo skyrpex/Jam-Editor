@@ -30,7 +30,7 @@ QJsonObject AnimationToJson::toJsonObject(const Animation &animation)
     QJsonObject animationObject;
     animationObject.insert("frameCount", animation.frameCount());
     animationObject.insert("fps", animation.fps());
-    animationObject.insert("origin", toJsonObject(animation.origin()));
+//    animationObject.insert("origin", toJsonObject(animation.origin()));
 
     QJsonArray keyFramesArray;
     const auto keyFrames = animation.keyFrames();
@@ -50,6 +50,7 @@ QJsonObject AnimationToJson::toJsonObject(const KeyFrame &keyFrame)
     QJsonObject object;
     object.insert("fileName", QFileInfo(keyFrame.fileName()).fileName());
     object.insert("rect", toJsonObject(keyFrame.rect()));
+//    qDebug() << keyFrame.rect() << toJsonObject(keyFrame.rect());
     object.insert("offset", toJsonObject(keyFrame.offset()));
 
     QJsonObject customPropertiesObject;
